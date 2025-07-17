@@ -1,9 +1,9 @@
 /*
  * Copyright (C) 2025 Masoud Bolhassani <masoud.bolhassani@gmail.com>
  *
- * This file is part of Belfhym.
+ * This file is part of Kelbaran.
  *
- * Belfhym is released under the GNU General Public License v3 (GPL-3.0).
+ * Kelbaran is released under the GNU General Public License v3 (GPL-3.0).
  * See LICENSE file for details.
  */
 
@@ -17,7 +17,6 @@
 #include <stdint.h>
 
 #define MODE_BUTTON_DEBOUNCE_MS 100
-#define IR_CONTROL_TIMEOUT_MS 200
 
 /* -------------------- Main Controller Initialization -------------------- */
 void klbn_controller_init(void) {  

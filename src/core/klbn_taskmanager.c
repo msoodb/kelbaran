@@ -1,18 +1,10 @@
 /*
  * Copyright (C) 2025 Masoud Bolhassani <masoud.bolhassani@gmail.com>
  *
- * This file is part of Belfhym.
+ * This file is part of Kelbaran.
  *
- * Belfhym is released under the GNU General Public License v3 (GPL-3.0).
+ * Kelbaran is released under the GNU General Public License v3 (GPL-3.0).
  * See LICENSE file for details.
- */
-
-/**
- * @file klbn_taskmanager.c
- * @brief FreeRTOS task setup and startup manager.
- *
- * Registers and launches key tasks, such as sensor polling,
- * actuator control, and safety monitoring.
  */
 
 #include "klbn_taskmanager.h"
