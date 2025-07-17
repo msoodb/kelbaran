@@ -9,12 +9,11 @@
  */
 
 #include "klbn_sensor_hub.h"
-#include "klbn_ultrasonic.h"
 
 #include <stdbool.h>
 
 void klbn_sensor_hub_init(void) {
-  //klbn_ultrasonic_init();
+  // TODO: Initialize radio communication sensors
 }
 
 bool klbn_sensor_hub_read(klbn_sensor_data_t *out) {
@@ -22,6 +21,6 @@ bool klbn_sensor_hub_read(klbn_sensor_data_t *out) {
     return false;
   }
 
-  //return klbn_ultrasonic_read(&out->ultrasonic);
+  // TODO: Read radio communication status and data
   return true;
 }

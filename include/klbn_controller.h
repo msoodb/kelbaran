@@ -21,6 +21,7 @@
 #define KLBN_CONTROLLER_H
 
 #include "klbn_types.h"
+#include "klbn_state.h"
 
 /**
  * Initialize the controller state. Call once at startup.
@@ -28,10 +29,10 @@
 void klbn_controller_init(void);
 
 /**
- * Cycle between MANUAL/AUTO/EMERGENCY modes.
- * Updates the LED and stops motors.
+ * Change to a specific mode.
+ * Updates the LED and display.
  */
-void klbn_controller_cycle_mode(klbn_actuator_command_t *out);
+void klbn_controller_change_mode(klbn_mode_t new_mode, klbn_actuator_command_t *out);
 
 /**
  * Process sensor data and update actuator commands.
@@ -41,11 +42,8 @@ void klbn_controller_process(const klbn_sensor_data_t *in,
                              klbn_actuator_command_t *out);
 
 /**
- * Handle IR remote events in MANUAL mode.
- * Sets motion state and actuator outputs.
+ * TODO: Add radio communication processing functions here
  */
-void klbn_controller_process_ir_remote(const klbn_ir_remote_event_t *in,
-                                       klbn_actuator_command_t *out);
 
 /**
  * Handle joystick direction events in MANUAL mode.
@@ -67,5 +65,10 @@ void klbn_controller_process_joystick_click(const klbn_joystick_event_t *event,
  */
 void klbn_controller_process_mode_button(const klbn_mode_button_event_t *event,
                                          klbn_actuator_command_t *command);
+
+/**
+ * Get current system state.
+ */
+klbn_system_state_t klbn_controller_get_system_state(void);
 
 #endif /* KLBN_CONTROLLER_H */

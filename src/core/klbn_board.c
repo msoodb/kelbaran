@@ -13,15 +13,14 @@
 #include "klbn_gpio.h"
 #include "klbn_i2c.h"
 #include "klbn_delay.h"
-#include "klbn_pwm.h"
 
 void klbn_board_init(void) {
   klbn_clock_init();    // System clocks
   klbn_gpio_init();     // All GPIO modes
 
   // Peripheral inits
-  klbn_pwm_init();
   klbn_i2c_init(NULL);
+  // TODO: Add radio module initialization here
 
   // Enable cycle counter
   CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;

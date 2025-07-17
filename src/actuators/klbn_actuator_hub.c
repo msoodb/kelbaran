@@ -9,17 +9,13 @@
  */
 
 #include "klbn_led.h"
-#include "klbn_motor.h"
 #include "klbn_oled.h"
-#include "klbn_servomotor.h"
 #include "klbn_actuator_hub.h"
 #include "klbn_types.h"
 
 void klbn_actuator_hub_init(void) {
   klbn_led_init();
-  klbn_motor_init();
-  klbn_oled_init();
-  klbn_servomotor_init();
+  //klbn_oled_init();
 }
 
 void klbn_actuator_hub_apply(const klbn_actuator_command_t *cmd) {
@@ -27,7 +23,5 @@ void klbn_actuator_hub_apply(const klbn_actuator_command_t *cmd) {
     return;
 
   klbn_led_apply(&cmd->led);
-  klbn_motor_apply(&cmd->motor);
-  klbn_oled_apply(&cmd->oled);
-  klbn_servomotor_apply(&cmd->servo);
+  //klbn_oled_apply(&cmd->oled);
 }

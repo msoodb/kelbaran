@@ -16,38 +16,19 @@
 // =============================
 // === PORT A ==================
 // =============================
-#define KLBN_MOTOR_LEFT_EN_PORT GPIOA
-#define KLBN_MOTOR_LEFT_EN_PIN 0
-
-#define KLBN_MOTOR_RIGHT_EN_PORT GPIOA
-#define KLBN_MOTOR_RIGHT_EN_PIN 1
-
 #define KLBN_MODE_BUTTON_PORT GPIOA
 #define KLBN_MODE_BUTTON_PIN 4
 
-
-
-#define KLBN_SERVO_PWM_PORT GPIOA
-#define KLBN_SERVO_PWM_PIN 7  // TIM3_CH2
-
-#define KLBN_IR_REMOTE_PORT GPIOA
-#define KLBN_IR_REMOTE_PIN 8
+// TODO: Add radio module pins here
+// Example for nRF24L01:
+// #define KLBN_RADIO_CE_PORT GPIOA
+// #define KLBN_RADIO_CE_PIN 2
+// #define KLBN_RADIO_CSN_PORT GPIOA
+// #define KLBN_RADIO_CSN_PIN 3
 
 // =============================
 // === PORT B ==================
 // =============================
-#define KLBN_MOTOR_LEFT_IN1_PORT GPIOB
-#define KLBN_MOTOR_LEFT_IN1_PIN 0
-
-#define KLBN_MOTOR_LEFT_IN2_PORT GPIOB
-#define KLBN_MOTOR_LEFT_IN2_PIN 1
-
-#define KLBN_ULTRASONIC_ECHO_PORT GPIOB
-#define KLBN_ULTRASONIC_ECHO_PIN 3
-
-#define KLBN_ULTRASONIC_TRIG_PORT GPIOB
-#define KLBN_ULTRASONIC_TRIG_PIN 4
-
 #define KLBN_LED_EXTERNAL_PORT GPIOB
 #define KLBN_LED_EXTERNAL_PIN 5
 
@@ -57,11 +38,7 @@
 #define KLBN_I2C1_SDA_PORT GPIOB
 #define KLBN_I2C1_SDA_PIN 7
 
-#define KLBN_MOTOR_RIGHT_IN1_PORT GPIOB
-#define KLBN_MOTOR_RIGHT_IN1_PIN 10
-
-#define KLBN_MOTOR_RIGHT_IN2_PORT GPIOB
-#define KLBN_MOTOR_RIGHT_IN2_PIN 11
+// TODO: Add additional radio module pins here if needed
 
 
 // =============================

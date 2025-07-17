@@ -26,7 +26,6 @@
 #include "klbn_sensor_hub.h"
 
 #include "klbn_mode_button.h"
-#include "klbn_ir_remote.h"
 
 // --- Task declarations ---
 static void vSensorHubTask(void *pvParameters);
@@ -35,8 +34,6 @@ static void vActuatorHubTask(void *pvParameters);
 
 // --- Event Handlers ---
 static void handle_sensor_data(void);
-
-static void handle_ir_remote_event(void);
 static void handle_mode_button_event(void);
 
 // --- Task and queue settings ---
@@ -51,8 +48,6 @@ static void handle_mode_button_event(void);
 // --- Queues ---
 static QueueHandle_t xSensorDataQueue = NULL;
 static QueueHandle_t xActuatorCmdQueue = NULL;
-
-static QueueHandle_t xIRRemoteQueue = NULL;
 static QueueHandle_t xModeButtonQueue = NULL;
 
 static QueueSetHandle_t xControllerQueueSet = NULL;
@@ -66,20 +61,14 @@ void klbn_taskmanager_setup(void) {
   configASSERT(xActuatorCmdQueue != NULL);
 
   // Event queues
-
-  xIRRemoteQueue = xQueueCreate(5, sizeof(klbn_ir_remote_event_t));
-  configASSERT(xIRRemoteQueue != NULL);
-
   xModeButtonQueue = xQueueCreate(5, sizeof(klbn_mode_button_event_t));
   configASSERT(xModeButtonQueue != NULL);
-
 
   // Queue set
   xControllerQueueSet = xQueueCreateSet(10);
   configASSERT(xControllerQueueSet != NULL);
 
   xQueueAddToSet(xSensorDataQueue, xControllerQueueSet);
-  xQueueAddToSet(xIRRemoteQueue, xControllerQueueSet);
   xQueueAddToSet(xModeButtonQueue, xControllerQueueSet);
 
   // Init all modules
@@ -88,7 +77,6 @@ void klbn_taskmanager_setup(void) {
   klbn_controller_init();
 
   klbn_mode_button_init(xModeButtonQueue);
-  //klbn_ir_remote_init(xIRRemoteQueue);
 
   // Tasks (always run sensor and actuator hub)
   xTaskCreate(vSensorHubTask, "SensorHub", SENSOR_HUB_TASK_STACK, NULL,
@@ -126,9 +114,6 @@ static void vControllerTask(void *pvParameters) {
     if (activated == xSensorDataQueue) {
       handle_sensor_data();
     }
-    else if (activated == xIRRemoteQueue) {
-      handle_ir_remote_event();
-    }
     else if (activated == xModeButtonQueue) {
       handle_mode_button_event();
     }
@@ -161,15 +146,6 @@ static void handle_sensor_data(void) {
 }
 
 
-static void handle_ir_remote_event(void) {
-  klbn_ir_remote_event_t event;
-  klbn_actuator_command_t command;
-
-  if (xQueueReceive(xIRRemoteQueue, &event, 0) == pdPASS) {
-    klbn_controller_process_ir_remote(&event, &command);
-    xQueueSendToBack(xActuatorCmdQueue, &command, 0);
-  }
-}
 
 static void handle_mode_button_event(void) {
   klbn_mode_button_event_t event;
