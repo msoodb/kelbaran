@@ -18,9 +18,12 @@
 #include "stm32f1xx.h"
 
 #define DEBOUNCE_DELAY_MS 50
+#define LONG_PRESS_DURATION_MS 3000
 
 static QueueHandle_t mode_button_queue = NULL;
 static uint32_t last_press_tick = 0;
+static uint32_t press_start_time = 0;
+static bool button_pressed = false;
 
 static void mode_button_exti_handler(void) {
   if (mode_button_queue == NULL) {
@@ -39,14 +42,36 @@ static void mode_button_exti_handler(void) {
   klbn_mode_button_event_t event;
 
   if (pin_state) {
-    event.event_type = KLBN_MODE_BUTTON_EVENT_RELEASED;
+    // Button released
+    if (button_pressed) {
+      uint32_t press_duration = now - press_start_time;
+      
+      if (press_duration >= pdMS_TO_TICKS(LONG_PRESS_DURATION_MS)) {
+        // Long press
+        event.event_type = KLBN_MODE_BUTTON_EVENT_LONG_PRESS;
+        event.press_duration = press_duration;
+      } else {
+        // Normal release
+        event.event_type = KLBN_MODE_BUTTON_EVENT_RELEASED;
+        event.press_duration = press_duration;
+      }
+      
+      button_pressed = false;
+      event.timestamp = now;
+      xQueueSendFromISR(mode_button_queue, &event, &xHigherPriorityTaskWoken);
+    }
   } else {
-    event.event_type = KLBN_MODE_BUTTON_EVENT_PRESSED;
+    // Button pressed
+    if (!button_pressed) {
+      event.event_type = KLBN_MODE_BUTTON_EVENT_PRESSED;
+      event.timestamp = now;
+      event.press_duration = 0;
+      press_start_time = now;
+      button_pressed = true;
+      xQueueSendFromISR(mode_button_queue, &event, &xHigherPriorityTaskWoken);
+    }
   }
 
-  event.timestamp = now;
-
-  xQueueSendFromISR(mode_button_queue, &event, &xHigherPriorityTaskWoken);
   portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
 

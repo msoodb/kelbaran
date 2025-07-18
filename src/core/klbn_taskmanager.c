@@ -163,6 +163,9 @@ static void vRadioHubTask(void *pvParameters) {
       klbn_radio_hub_send(&radio_cmd);
     }
     
+    // Update pairing state machine
+    klbn_radio_hub_tick();
+    
     vTaskDelay(pdMS_TO_TICKS(10));
   }
 }
@@ -189,8 +192,13 @@ static void handle_mode_button_event(void) {
     klbn_controller_process_mode_button(&event, &command);
     xQueueSendToBack(xActuatorCmdQueue, &command, 0);
     
-    // Send radio message on button press
-    if (event.event_type == KLBN_MODE_BUTTON_EVENT_PRESSED) {
+    // Handle different button events
+    if (event.event_type == KLBN_MODE_BUTTON_EVENT_LONG_PRESS) {
+      // Start pairing on long press
+      klbn_radio_hub_start_pairing();
+    }
+    else if (event.event_type == KLBN_MODE_BUTTON_EVENT_PRESSED) {
+      // Send radio message on short press
       const char* message = "Hello";
       radio_cmd.length = 5;
       for (uint8_t i = 0; i < 5; i++) {

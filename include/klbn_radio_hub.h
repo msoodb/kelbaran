@@ -31,4 +31,14 @@ bool klbn_radio_hub_read(klbn_radio_data_t *out);
  */
 void klbn_radio_hub_send(const klbn_radio_command_t *cmd);
 
+/**
+ * @brief Tick function for pairing state machine
+ */
+void klbn_radio_hub_tick(void);
+
+/**
+ * @brief Start pairing process
+ */
+void klbn_radio_hub_start_pairing(void);
+
 #endif /* KLBN_RADIO_HUB_H */

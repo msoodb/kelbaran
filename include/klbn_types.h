@@ -25,12 +25,14 @@
 //-----------------------
 typedef enum {
   KLBN_MODE_BUTTON_EVENT_PRESSED,
-  KLBN_MODE_BUTTON_EVENT_RELEASED
+  KLBN_MODE_BUTTON_EVENT_RELEASED,
+  KLBN_MODE_BUTTON_EVENT_LONG_PRESS
 } klbn_mode_button_event_type_t;
 
 typedef struct {
   klbn_mode_button_event_type_t event_type;
   uint32_t timestamp;
+  uint32_t press_duration;
 } klbn_mode_button_event_t;
 
 
@@ -51,6 +53,30 @@ typedef struct {
   uint8_t data[32];
   uint8_t length;
 } klbn_radio_command_t;
+
+//-----------------------
+//  pairing
+//-----------------------
+typedef enum {
+  KLBN_PAIR_STATE_NORMAL = 0,
+  KLBN_PAIR_STATE_WAITING,
+  KLBN_PAIR_STATE_MASTER,
+  KLBN_PAIR_STATE_SLAVE,
+  KLBN_PAIR_STATE_PAIRED
+} klbn_pair_state_t;
+
+typedef enum {
+  KLBN_PAIR_MSG_REQUEST = 0x01,
+  KLBN_PAIR_MSG_ACCEPT = 0x02,
+  KLBN_PAIR_MSG_CONFIRM = 0x03,
+  KLBN_PAIR_MSG_COMPLETE = 0x04
+} klbn_pair_msg_type_t;
+
+typedef struct {
+  klbn_pair_msg_type_t type;
+  uint8_t board_id[4];
+  uint8_t address[5];
+} klbn_pair_message_t;
 
 //-----------------------
 //  actuators
