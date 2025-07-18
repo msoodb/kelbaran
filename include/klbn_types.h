@@ -33,16 +33,6 @@ typedef struct {
   uint32_t timestamp;
 } klbn_mode_button_event_t;
 
-// Radio event types
-typedef enum {
-    KLBN_RADIO_EVENT_MODE_SWITCH = 0,
-    KLBN_RADIO_EVENT_DATA_RECEIVED,
-    KLBN_RADIO_EVENT_DATA_SENT,
-    KLBN_RADIO_EVENT_ERROR
-} klbn_radio_event_t;
-
-// Forward declaration for radio message (requires klbn_radio_packet_t from nrf24l01.h)
-typedef struct klbn_radio_message_t klbn_radio_message_t;
 
 typedef struct {
   uint32_t timestamp;

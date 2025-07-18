@@ -15,14 +15,6 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-// Radio states
-typedef enum {
-    KLBN_RADIO_STATE_IDLE = 0,
-    KLBN_RADIO_STATE_TX_MODE,
-    KLBN_RADIO_STATE_RX_MODE,
-    KLBN_RADIO_STATE_TRANSMITTING,
-    KLBN_RADIO_STATE_LISTENING,
-    KLBN_RADIO_STATE_ERROR
-} klbn_radio_state_t;
+// Global state definitions can be added here
 
 #endif // KLBN_STATE_H
