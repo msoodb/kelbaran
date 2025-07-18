@@ -19,6 +19,18 @@
 #define KLBN_MODE_BUTTON_PORT GPIOA
 #define KLBN_MODE_BUTTON_PIN 4
 
+// NRF24L01 Radio pins
+#define KLBN_RADIO_CE_PORT GPIOA
+#define KLBN_RADIO_CE_PIN 2
+
+#define KLBN_RADIO_CSN_PORT GPIOA
+#define KLBN_RADIO_CSN_PIN 3
+
+#define KLBN_RADIO_IRQ_PORT GPIOA
+#define KLBN_RADIO_IRQ_PIN 8
+
+// SPI1 pins (PA5=SCK, PA6=MISO, PA7=MOSI)
+
 
 // =============================
 // === PORT B ==================

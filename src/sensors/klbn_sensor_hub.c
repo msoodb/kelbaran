@@ -9,11 +9,13 @@
  */
 
 #include "klbn_sensor_hub.h"
+#include "klbn_radio.h"
 
 #include <stdbool.h>
 
 void klbn_sensor_hub_init(void) {
-  // TODO: Initialize radio communication sensors
+  // Initialize radio communication
+  klbn_radio_init();
 }
 
 bool klbn_sensor_hub_read(klbn_sensor_data_t *out) {
