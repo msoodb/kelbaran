@@ -39,6 +39,20 @@ typedef struct {
 } klbn_sensor_data_t;
 
 //-----------------------
+//  radio
+//-----------------------
+typedef struct {
+  uint8_t data[32];
+  uint8_t length;
+  uint32_t timestamp;
+} klbn_radio_data_t;
+
+typedef struct {
+  uint8_t data[32];
+  uint8_t length;
+} klbn_radio_command_t;
+
+//-----------------------
 //  actuators
 //-----------------------
 typedef enum {

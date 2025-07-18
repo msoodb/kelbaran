@@ -70,7 +70,7 @@ static void klbn_nrf24l01_write_register(uint8_t reg, uint8_t value) {
 /**
  * @brief Read multiple bytes from register
  */
-static void klbn_nrf24l01_read_register_multi(uint8_t reg, uint8_t *data, uint8_t length) {
+/*static void klbn_nrf24l01_read_register_multi(uint8_t reg, uint8_t *data, uint8_t length) {
     klbn_spi_cs_low();
     klbn_spi_transfer(NRF24L01_CMD_R_REGISTER | reg);
     
@@ -79,7 +79,7 @@ static void klbn_nrf24l01_read_register_multi(uint8_t reg, uint8_t *data, uint8_
     }
     
     klbn_spi_cs_high();
-}
+    }*/
 
 /**
  * @brief Write multiple bytes to register
