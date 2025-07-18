@@ -36,12 +36,19 @@
 // === PORT B ==================
 // =============================
 
-// I2C1 pins (PB6, PB7)
+// I2C1 pins (PB6, PB7) - Used for OLED
 #define KLBN_I2C1_SCL_PORT GPIOB
 #define KLBN_I2C1_SCL_PIN 6
 
 #define KLBN_I2C1_SDA_PORT GPIOB
 #define KLBN_I2C1_SDA_PIN 7
+
+// OLED uses I2C1 pins
+#define KLBN_OLED_SCL_PORT KLBN_I2C1_SCL_PORT
+#define KLBN_OLED_SCL_PIN KLBN_I2C1_SCL_PIN
+
+#define KLBN_OLED_SDA_PORT KLBN_I2C1_SDA_PORT
+#define KLBN_OLED_SDA_PIN KLBN_I2C1_SDA_PIN
 
 // -----------------------------
 

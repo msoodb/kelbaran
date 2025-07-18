@@ -68,11 +68,10 @@ typedef enum {
 } klbn_led_mode_t;
 
 typedef struct {
-  klbn_led_mode_t mode;    // off, on, or blink
-  uint16_t blink_speed_ms; // blinking speed in milliseconds (period)
-  uint8_t pattern_id; // blink pattern id (e.g., 0=solid, 1=short pulses, 2=SOS,
-  uint8_t
-      brightness; // brightness level (0-255), optional if hardware supports PWM
+  klbn_led_mode_t mode;
+  uint16_t blink_speed_ms;
+  uint8_t pattern_id;
+  uint8_t brightness;
 } klbn_led_command_t;
 
 typedef struct {

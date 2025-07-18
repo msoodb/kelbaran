@@ -1,9 +1,13 @@
+
 #include "klbn_oled.h"
 #include "klbn_delay.h"
 #include "klbn_font8x8.h"
 #include "klbn_i2c.h"
 #include "klbn_types.h"
 #include "libc_stubs.h"
+
+#include "klbn_gpio.h"
+#include "klbn_pins.h"
 
 #define OLED_I2C_ADDR 0x3C
 
@@ -50,6 +54,7 @@ void klbn_oled_init(void) {
 
   klbn_oled_clear();
   klbn_oled_flush();
+
 }
 
 void klbn_oled_clear(void) {
@@ -276,7 +281,7 @@ void klbn_oled_apply(const klbn_oled_command_t *data) {
   // Static cache to avoid unnecessary updates
   static klbn_oled_command_t last_cmd = {0};
   static bool first_call = true;
-  
+ 
   // Quick check if content has changed (simple optimization)
   if (!first_call && 
       data->icon1 == last_cmd.icon1 && 
@@ -289,7 +294,7 @@ void klbn_oled_apply(const klbn_oled_command_t *data) {
       strcmp(data->smalltext2, last_cmd.smalltext2) == 0 &&
       strcmp(data->bigtext, last_cmd.bigtext) == 0) {
     return; // No changes, skip update
-  }
+  } 
   
   // Content has changed, update display
   klbn_oled_clear_buf(oled_framebuffer);
