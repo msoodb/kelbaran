@@ -1,4 +1,3 @@
-
 /*
  * Copyright (C) 2025 Masoud Bolhassani <masoud.bolhassani@gmail.com>
  *
@@ -24,8 +23,8 @@
 #define LED_TASK_PRIORITY 2
 #define LED_QUEUE_LENGTH 1
 
-static void klbn_led_external_on(void);
-static void klbn_led_external_off(void);
+static void klbn_led_on(void);
+static void klbn_led_off(void);
 static void vLedTask(void *pvParameters);
 
 static QueueHandle_t led_command_queue = NULL;
@@ -33,9 +32,7 @@ static TaskHandle_t led_task_handle = NULL;
 
 void klbn_led_init(void) {
   klbn_gpio_config_output((uint32_t)KLBN_LED_ONBOARD_PORT, KLBN_LED_ONBOARD_PIN);
-  klbn_gpio_config_output((uint32_t)KLBN_LED_EXTERNAL_PORT, KLBN_LED_EXTERNAL_PIN);
   klbn_gpio_config_output((uint32_t)KLBN_LED_DEBUG_PORT, KLBN_LED_DEBUG_PIN);
-  //klbn_gpio_set_pin((uint32_t)KLBN_LED_DEBUG_PORT, KLBN_LED_DEBUG_PIN);
       
   if (led_command_queue == NULL) {
     led_command_queue =
@@ -57,12 +54,12 @@ void klbn_led_apply(const klbn_led_command_t *cmd) {
   xQueueOverwrite(led_command_queue, cmd);
 }
 
-static void klbn_led_external_on(void) {
-  klbn_gpio_set_pin((uint32_t)KLBN_LED_EXTERNAL_PORT, KLBN_LED_EXTERNAL_PIN);
+static void klbn_led_on(void) {
+  klbn_gpio_set_pin((uint32_t)KLBN_LED_ONBOARD_PORT, KLBN_LED_ONBOARD_PIN);
 }
 
-static void klbn_led_external_off(void) {
-  klbn_gpio_clear_pin((uint32_t)KLBN_LED_EXTERNAL_PORT, KLBN_LED_EXTERNAL_PIN);
+static void klbn_led_off(void) {
+  klbn_gpio_clear_pin((uint32_t)KLBN_LED_ONBOARD_PORT, KLBN_LED_ONBOARD_PIN);
 }
 
 static void vLedTask(void *pvParameters) {
@@ -82,12 +79,12 @@ static void vLedTask(void *pvParameters) {
 
     switch (current_cmd.mode) {
     case KLBN_LED_MODE_OFF:
-      klbn_led_external_off();
+      klbn_led_off();
       led_state = false;
       break;
 
     case KLBN_LED_MODE_ON:
-      klbn_led_external_on();
+      klbn_led_on();
       led_state = true;
       break;
 
@@ -97,9 +94,9 @@ static void vLedTask(void *pvParameters) {
           pdMS_TO_TICKS(current_cmd.blink_speed_ms)) {
         led_state = !led_state;
         if (led_state) {
-          klbn_led_external_on();
+          klbn_led_on();
         } else {
-          klbn_led_external_off();
+          klbn_led_off();
         }
         last_toggle_tick = now;
       }
@@ -107,7 +104,7 @@ static void vLedTask(void *pvParameters) {
     }
 
     default:
-      klbn_led_external_off();
+      klbn_led_off();
       led_state = false;
       break;
     }

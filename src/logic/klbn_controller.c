@@ -32,7 +32,7 @@ void klbn_controller_process(const klbn_sensor_data_t *in,
   
   // Simple LED control - normal blink
   out->led.mode = KLBN_LED_MODE_BLINK;
-  out->led.blink_speed_ms = 200;
+  out->led.blink_speed_ms = 500;
 }
 
 /* -------------------- Mode Button -------------------- */

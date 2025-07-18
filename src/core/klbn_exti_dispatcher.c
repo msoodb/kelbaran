@@ -43,3 +43,14 @@ void EXTI9_5_IRQHandler(void) {
     }
   }
 }
+
+void EXTI15_10_IRQHandler(void) {
+  for (uint8_t line = 10; line <= 15; ++line) {
+    if (EXTI->PR & (1U << line)) {
+      EXTI->PR = (1U << line); // clear pending bit once here
+      if (exti_callbacks[line]) {
+        exti_callbacks[line]();
+      }
+    }
+  }
+}

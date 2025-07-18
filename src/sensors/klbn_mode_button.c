@@ -56,9 +56,9 @@ void klbn_mode_button_init(QueueHandle_t controller_queue) {
   // Configure as input with Pull‑Up
   klbn_gpio_config_input_pullup((uint32_t)KLBN_MODE_BUTTON_PORT, KLBN_MODE_BUTTON_PIN);
 
-  // EXTI mapping for PA4
-  AFIO->EXTICR[1] &= ~(0xF << (4 * (KLBN_MODE_BUTTON_PIN - 4)));
-  AFIO->EXTICR[1] |= (AFIO_EXTICR2_EXTI4_PA << (4 * (KLBN_MODE_BUTTON_PIN - 4)));
+  // EXTI mapping for PC15
+  AFIO->EXTICR[3] &= ~(0xF << (4 * (KLBN_MODE_BUTTON_PIN - 12)));
+  AFIO->EXTICR[3] |= (0x2 << (4 * (KLBN_MODE_BUTTON_PIN - 12)));
 
   // Trigger both edges
   EXTI->IMR |= (1 << KLBN_MODE_BUTTON_PIN);
@@ -68,7 +68,7 @@ void klbn_mode_button_init(QueueHandle_t controller_queue) {
   // Register callback
   klbn_exti_register_callback(KLBN_MODE_BUTTON_PIN, mode_button_exti_handler);
 
-  // Enable IRQ
-  NVIC_EnableIRQ(EXTI4_IRQn);
+  // Enable IRQ (EXTI15_10 handles EXTI15)
+  NVIC_EnableIRQ(EXTI15_10_IRQn);
 }
 

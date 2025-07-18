@@ -12,6 +12,7 @@
 #include "klbn_clock.h"
 #include "klbn_gpio.h"
 #include "klbn_i2c.h"
+#include "klbn_spi.h"
 #include "klbn_delay.h"
 
 void klbn_board_init(void) {
@@ -20,7 +21,7 @@ void klbn_board_init(void) {
 
   // Peripheral inits
   klbn_i2c_init(NULL);
-  // TODO: Add radio module initialization here
+  klbn_spi_init(NULL);  // Initialize SPI1 with default config
 
   // Enable cycle counter
   CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
