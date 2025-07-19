@@ -13,32 +13,8 @@
 #include <stdbool.h>
 #include "klbn_types.h"
 
-/**
- * @brief Initialize radio hub
- */
 void klbn_radio_hub_init(void);
-
-/**
- * @brief Read radio data (sensor-like)
- * @param out Output data structure
- * @return true if data available, false otherwise
- */
 bool klbn_radio_hub_read(klbn_radio_data_t *out);
-
-/**
- * @brief Send radio command (actuator-like)
- * @param cmd Command structure
- */
-void klbn_radio_hub_send(const klbn_radio_command_t *cmd);
-
-/**
- * @brief Tick function for pairing state machine
- */
-void klbn_radio_hub_tick(void);
-
-/**
- * @brief Start pairing process
- */
-void klbn_radio_hub_start_pairing(void);
+void klbn_radio_hub_apply(const klbn_radio_command_t *cmd);
 
 #endif /* KLBN_RADIO_HUB_H */

@@ -54,29 +54,7 @@ typedef struct {
   uint8_t length;
 } klbn_radio_command_t;
 
-//-----------------------
-//  pairing
-//-----------------------
-typedef enum {
-  KLBN_PAIR_STATE_NORMAL = 0,
-  KLBN_PAIR_STATE_WAITING,
-  KLBN_PAIR_STATE_MASTER,
-  KLBN_PAIR_STATE_SLAVE,
-  KLBN_PAIR_STATE_PAIRED
-} klbn_pair_state_t;
-
-typedef enum {
-  KLBN_PAIR_MSG_REQUEST = 0x01,
-  KLBN_PAIR_MSG_ACCEPT = 0x02,
-  KLBN_PAIR_MSG_CONFIRM = 0x03,
-  KLBN_PAIR_MSG_COMPLETE = 0x04
-} klbn_pair_msg_type_t;
-
-typedef struct {
-  klbn_pair_msg_type_t type;
-  uint8_t board_id[4];
-  uint8_t address[5];
-} klbn_pair_message_t;
+// Pairing types removed
 
 //-----------------------
 //  actuators

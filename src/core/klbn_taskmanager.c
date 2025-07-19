@@ -160,11 +160,8 @@ static void vRadioHubTask(void *pvParameters) {
     
     // Check for outgoing radio commands
     if (xQueueReceive(xRadioCmdQueue, &radio_cmd, 0) == pdPASS) {
-      klbn_radio_hub_send(&radio_cmd);
+      klbn_radio_hub_apply(&radio_cmd);
     }
-    
-    // Update pairing state machine
-    klbn_radio_hub_tick();
     
     vTaskDelay(pdMS_TO_TICKS(10));
   }
@@ -193,12 +190,8 @@ static void handle_mode_button_event(void) {
     xQueueSendToBack(xActuatorCmdQueue, &command, 0);
     
     // Handle different button events
-    if (event.event_type == KLBN_MODE_BUTTON_EVENT_LONG_PRESS) {
-      // Start pairing on long press
-      klbn_radio_hub_start_pairing();
-    }
-    else if (event.event_type == KLBN_MODE_BUTTON_EVENT_PRESSED) {
-      // Send radio message on short press
+    if (event.event_type == KLBN_MODE_BUTTON_EVENT_PRESSED) {
+      // Simple radio message
       const char* message = "Hello";
       radio_cmd.length = 5;
       for (uint8_t i = 0; i < 5; i++) {
@@ -214,7 +207,7 @@ static void handle_radio_data(void) {
   klbn_actuator_command_t command;
 
   if (xQueueReceive(xRadioDataQueue, &radio_data, 0) == pdPASS) {
-    // Flash LED when receiving any message
+    // Simple LED flash when receiving any message
     command.led.mode = KLBN_LED_MODE_BLINK;
     command.led.blink_speed_ms = 200;
     command.led.pattern_id = 1;
