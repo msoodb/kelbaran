@@ -154,13 +154,13 @@ static void vRadioHubTask(void *pvParameters) {
 
   for (;;) {
     // Check for incoming radio data
-    if (klbn_radio_hub_read(&radio_data)) {
+    if (klbn_radio_hub_receive(&radio_data)) {
       xQueueSendToBack(xRadioDataQueue, &radio_data, 0);
     }
     
     // Check for outgoing radio commands
     if (xQueueReceive(xRadioCmdQueue, &radio_cmd, 0) == pdPASS) {
-      klbn_radio_hub_apply(&radio_cmd);
+      klbn_radio_hub_send(&radio_cmd);
     }
     
     vTaskDelay(pdMS_TO_TICKS(10));

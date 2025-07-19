@@ -46,7 +46,7 @@ void klbn_controller_process(const klbn_sensor_data_t *in,
   out->oled.icon3 = KLBN_OLED_ICON_NONE;
   out->oled.icon4 = KLBN_OLED_ICON_NONE;
 
-  safe_strncpy(out->oled.bigtext, "BELFHYM VZA-993", BLFM_OLED_MAX_BIG_TEXT_LEN);
+  safe_strncpy(out->oled.bigtext, "KELBARAN 2025", BLFM_OLED_MAX_BIG_TEXT_LEN);
 
   out->oled.invert = 0;
   out->oled.progress_percent = 75;

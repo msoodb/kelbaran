@@ -14,7 +14,7 @@
 #include "klbn_types.h"
 
 void klbn_radio_hub_init(void);
-bool klbn_radio_hub_read(klbn_radio_data_t *out);
-void klbn_radio_hub_apply(const klbn_radio_command_t *cmd);
+bool klbn_radio_hub_receive(klbn_radio_data_t *out);
+void klbn_radio_hub_send(const klbn_radio_command_t *cmd);
 
 #endif /* KLBN_RADIO_HUB_H */

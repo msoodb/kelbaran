@@ -31,7 +31,7 @@ void klbn_nrf24l01_module_init(void) {
   }
 }
 
-bool klbn_nrf24l01_module_read(klbn_radio_data_t *out) {
+bool klbn_nrf24l01_module_receive(klbn_radio_data_t *out) {
   if (!out || !module_initialized) {
     return false;
   }
@@ -47,7 +47,7 @@ bool klbn_nrf24l01_module_read(klbn_radio_data_t *out) {
   return false;
 }
 
-void klbn_nrf24l01_module_apply(const klbn_radio_command_t *cmd) {
+void klbn_nrf24l01_module_send(const klbn_radio_command_t *cmd) {
   if (!cmd || !module_initialized) {
     return;
   }

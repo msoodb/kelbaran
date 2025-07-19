@@ -15,18 +15,18 @@ void klbn_radio_hub_init(void) {
   klbn_nrf24l01_module_init();
 }
 
-bool klbn_radio_hub_read(klbn_radio_data_t *out) {
+bool klbn_radio_hub_receive(klbn_radio_data_t *out) {
   if (!out) {
     return false;
   }
 
-  return klbn_nrf24l01_module_read(out);
+  return klbn_nrf24l01_module_receive(out);
 }
 
-void klbn_radio_hub_apply(const klbn_radio_command_t *cmd) {
+void klbn_radio_hub_send(const klbn_radio_command_t *cmd) {
   if (!cmd) {
     return;
   }
 
-  klbn_nrf24l01_module_apply(cmd);
+  klbn_nrf24l01_module_send(cmd);
 }
