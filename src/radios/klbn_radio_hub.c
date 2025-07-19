@@ -22,13 +22,14 @@ bool klbn_radio_hub_read(klbn_radio_data_t *out) {
     return false;
   }
 
-  // Try to read radio data
+  // Don't read data during pairing mode - let pairing handle it directly
+  klbn_pair_state_t pairing_state = klbn_pairing_get_state();
+  if (pairing_state != KLBN_PAIR_STATE_NORMAL && pairing_state != KLBN_PAIR_STATE_PAIRED) {
+    return false;
+  }
+
+  // Try to read radio data only when not pairing
   if (klbn_nrf24l01_module_read(out)) {
-    // Check if it's a pairing message
-    if (klbn_pairing_process_message(out)) {
-      // It was a pairing message, don't pass to application
-      return false;
-    }
     // Normal data message
     return true;
   }

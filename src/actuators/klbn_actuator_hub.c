@@ -15,7 +15,7 @@
 
 void klbn_actuator_hub_init(void) {
   klbn_led_init();
-  klbn_oled_init();
+  //klbn_oled_init();
 }
 
 void klbn_actuator_hub_apply(const klbn_actuator_command_t *cmd) {
@@ -23,5 +23,5 @@ void klbn_actuator_hub_apply(const klbn_actuator_command_t *cmd) {
     return;
 
   klbn_led_apply(&cmd->led);
-  klbn_oled_apply(&cmd->oled);
+  //klbn_oled_apply(&cmd->oled);
 }

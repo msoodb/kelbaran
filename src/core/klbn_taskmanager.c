@@ -211,12 +211,15 @@ static void handle_mode_button_event(void) {
 
 static void handle_radio_data(void) {
   klbn_radio_data_t radio_data;
-  //klbn_actuator_command_t command;
+  klbn_actuator_command_t command;
 
   if (xQueueReceive(xRadioDataQueue, &radio_data, 0) == pdPASS) {
-    // TODO: Add klbn_controller_process_radio_data function
-    // klbn_controller_process_radio_data(&radio_data, &command);
-    // xQueueSendToBack(xActuatorCmdQueue, &command, 0);
+    // Flash LED when receiving any message
+    command.led.mode = KLBN_LED_MODE_BLINK;
+    command.led.blink_speed_ms = 200;
+    command.led.pattern_id = 1;
+    command.led.brightness = 100;
+    xQueueSendToBack(xActuatorCmdQueue, &command, 0);
   }
 }
 

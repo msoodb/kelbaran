@@ -19,14 +19,7 @@ static bool module_initialized = false;
 void klbn_nrf24l01_module_init(void) {
   // Initialize NRF24L01 with default settings
   if (klbn_nrf24l01_init(NULL) == KLBN_NRF24L01_OK) {
-    // Set default addresses
-    uint8_t address[] = {0x01, 0x02, 0x03, 0x04, 0x05};
-    klbn_nrf24l01_set_tx_address(address);
-    klbn_nrf24l01_set_rx_address(address);
-    
-    // Start in RX mode
-    klbn_nrf24l01_set_mode(KLBN_NRF24L01_MODE_RX);
-    
+    // Addresses will be set by pairing system
     module_initialized = true;
   }
 }
